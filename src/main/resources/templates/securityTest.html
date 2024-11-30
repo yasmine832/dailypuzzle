@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--this code is based on baeldung.com/spring-security-tymeleaf -->
+
+<!--
+<div sec:authorize="hasRole('ROLE_USER')">This is only for users</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">This is only for admins</div>
+<div sec:authorize="isAuthenticated()">This is Only for authenticated users</div>
+-->
+
+<!--
+Authenticated username:
+<div sec:authentication="name"></div> <!-display name of the auth user -->
+<!--
+Authenticated user roles:
+<div sec:authentication="principal.authorities"></div> <!- access role auth user -->
+
+
+
+
+
+
+</body>
+</html>
