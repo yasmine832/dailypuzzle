@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DailypuzzleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DailypuzzleApplication.class, args);
+
+        SpringApplication.run(DailypuzzleApplication.class, args); // start app
     }
 
 }
