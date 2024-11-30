@@ -21,10 +21,19 @@ public class User {
     @Column(name="chosen time", nullable = false)
     private String chosenTime;
 
-   //@ManyToMany(mappedBy = "user") //foreign key
-    // private List<Puzzle> solvedPuzzles;
-    //tussentabel ?
+  //foreign key
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //removed from list, removed from db
+    private List<SolvedPuzzle> solvedPuzzles;
 
+    //user cans olve multiple puzzles and this entity tracks progress
+
+    public List<SolvedPuzzle> getSolvedPuzzles() {
+        return solvedPuzzles;
+    }
+
+    public void setSolvedPuzzles(List<SolvedPuzzle> solvedPuzzles) {
+        this.solvedPuzzles = solvedPuzzles;
+    }
 
     public Long getId() {
         return id;

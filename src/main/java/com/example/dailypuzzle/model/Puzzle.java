@@ -4,6 +4,7 @@ package com.example.dailypuzzle.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Puzzle {
@@ -22,11 +23,8 @@ public class Puzzle {
 
     private LocalDateTime expirationDate; //is 24H
 
-    //private User user; //many to one uniek?
-
-
-    //@manyToMany(mappedBy = "")
-    // private list User usersSolved
+    @OneToMany(mappedBy = "puzzle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SolvedPuzzle> solvedByUsers;
 
 
     public Long getId() {
