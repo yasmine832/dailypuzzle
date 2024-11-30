@@ -7,10 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 
-@SuppressWarnings("JpaMissingIdInspection")
-@Entity
 public interface PuzzleRepository extends JpaRepository<Puzzle, Long> {
-    //Puzzle findByQuestion(String question);
+    Puzzle findByQuestion(String question);
 
 
 
