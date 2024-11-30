@@ -77,6 +77,9 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
                         .requestMatchers("/login", "/register")
                         .permitAll() //allow login and register publicly
                         .anyRequest().authenticated() //restrict any other endpoint
+                        //.requestMatchers("/admin/**").hasRole("ADMIN") restrict acces to admin role only
+                        //.requestMatchers("/user/**").hasRole("USER")
+
                 )
                 .formLogin(formLogin ->
                         formLogin
