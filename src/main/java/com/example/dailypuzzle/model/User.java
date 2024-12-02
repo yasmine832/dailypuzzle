@@ -2,11 +2,16 @@ package com.example.dailypuzzle.model;
 
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class User {
+public class User implements UserDetails { //interface required by spring security
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // db is responsible for generating id
@@ -19,7 +24,8 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role;
+    private String role; //eg "ROLE_USER" "ROLE_ADMIN"
+
 
     @Column(name="chosen time", nullable = false)
     private String chosenTime;
@@ -29,6 +35,11 @@ public class User {
     private List<SolvedPuzzle> solvedPuzzles;
 
     //user cans olve multiple puzzles and this entity tracks progress
+
+
+    public User() {
+    }
+
 
     public List<SolvedPuzzle> getSolvedPuzzles() {
         return solvedPuzzles;
@@ -50,6 +61,26 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -62,12 +93,19 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Convert the role string into a GrantedAuthority
+        return Collections.singletonList(new SimpleGrantedAuthority(role)); // "ROLE_USER", "ROLE_ADMIN"
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+
     }
 
     public String getChosenTime() {

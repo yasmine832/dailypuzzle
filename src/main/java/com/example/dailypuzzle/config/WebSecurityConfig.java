@@ -74,7 +74,7 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register")
+                        .requestMatchers("/login", "/register","hello")//voorlopig
                         .permitAll() //allow login and register publicly
                         .anyRequest().authenticated() //restrict any other endpoint
                         //.requestMatchers("/admin/**").hasRole("ADMIN") restrict acces to admin role only
@@ -83,8 +83,8 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
                 )
                 .formLogin(formLogin ->
                         formLogin
-                                .loginPage("/login")
-                                .defaultSuccessUrl("/home", true) //TODO
+                                .loginPage("/login")//todo
+                                .defaultSuccessUrl("/hello", true) //Todoo "/home"
                                 .failureUrl("/login?error=true")
 
 
@@ -95,6 +95,12 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
                         .logoutSuccessUrl("/login?logout=true")
                 );
 
+
+        http.sessionManagement(sessionManagement ->
+                sessionManagement
+                        .maximumSessions(1)
+                        .expiredUrl("/login?sessionExpired=true")
+        );
 
         return http.build();
     }
