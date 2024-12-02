@@ -74,7 +74,7 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register","hello")//voorlopig
+                        .requestMatchers("/login", "/register","/hello","/api/users")//voorlopig
                         .permitAll() //allow login and register publicly
                         .anyRequest().authenticated() //restrict any other endpoint
                         //.requestMatchers("/admin/**").hasRole("ADMIN") restrict acces to admin role only

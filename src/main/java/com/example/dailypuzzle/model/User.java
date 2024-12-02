@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class User implements UserDetails { //interface required by spring securi
 
 
     @Column(name="chosen time", nullable = false)
-    private String chosenTime;
+    private LocalTime chosenTime; //format "HH:MM" TODO
 
   //foreign key
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //removed from list, removed from db
@@ -108,11 +109,19 @@ public class User implements UserDetails { //interface required by spring securi
 
     }
 
-    public String getChosenTime() {
+    public LocalTime getChosenTime() {
         return chosenTime;
     }
 
-    public void setChosenTime(String chosenTime) {
+    public void setChosenTime(LocalTime chosenTime) {
         this.chosenTime = chosenTime;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
