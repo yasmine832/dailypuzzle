@@ -83,7 +83,7 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
                 )
                 .formLogin(formLogin ->
                         formLogin
-                                .loginPage("/login")//todo
+
                                 .defaultSuccessUrl("/hello", true) //Todoo "/home"
                                 .failureUrl("/login?error=true")
 
@@ -96,11 +96,11 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
                 );
 
 
-        http.sessionManagement(sessionManagement ->
-                sessionManagement
-                        .maximumSessions(1)
-                        .expiredUrl("/login?sessionExpired=true")
-        );
+//        http.sessionManagement(sessionManagement ->
+//                sessionManagement
+//                        .maximumSessions(1)
+//                        .expiredUrl("/login?sessionExpired=true")
+//        );
 
         return http.build();
     }

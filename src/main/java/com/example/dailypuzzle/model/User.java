@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails { //interface required by spring security
 
     @Id
@@ -79,8 +80,15 @@ public class User implements UserDetails { //interface required by spring securi
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        //return UserDetails.super.isEnabled();
+        return enabled;
     }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+
+    }
+    private boolean enabled = true;
+
 
     public void setUsername(String username) {
         this.username = username;
