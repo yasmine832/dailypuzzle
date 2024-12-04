@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users")// AZEERT
 public class User implements UserDetails { //interface required by spring security
 
     @Id
