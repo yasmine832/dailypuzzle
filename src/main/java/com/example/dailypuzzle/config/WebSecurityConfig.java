@@ -44,9 +44,11 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
     //configure userdetailsservice with jdbcuserdetailsmanager
     @Bean
     public JdbcUserDetailsManager userDetailsService(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        userDetailsManager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
+        userDetailsManager.setAuthoritiesByUsernameQuery("SELECT username, role AS authority FROM users WHERE username = ?");
+        return userDetailsManager;
     }
-
 
 
     // to store and retrieve user data from db, connects db directly tru jdbc

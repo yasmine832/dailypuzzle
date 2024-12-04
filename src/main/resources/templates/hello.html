@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <title>Hello world</title>
+    <title>User Dashboard</title>
 </head>
-
 <body>
-<h1>Hello world!</h1>
+<h1>Welcome, <span th:text="${#authentication.name}">User</span>!</h1>
 
+<p>Your roles:</p>
+<ul>
+    <li th:each="auth : ${#authentication.authorities}">
+        <span th:text="${auth.authority}"></span>
+    </li>
+</ul>
+
+<div>
+    <h2>Common Section</h2>
+    <p>This section is visible to all logged-in users.</p>
+</div>
+
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <h2>Admin Section</h2>
+    <p>Only admins can see this content.</p>
+</div>
+
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+    <h2>User Section</h2>
+    <p>This content is for regular users.</p>
+</div>
+
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>
