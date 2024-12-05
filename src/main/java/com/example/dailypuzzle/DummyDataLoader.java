@@ -21,14 +21,16 @@ public class DummyDataLoader {
             user1.setEmail("user1@example.com");
             user1.setPassword(passwordEncoder.encode("password1"));  // Encrypt the password
             user1.setRole("ROLE_USER");
-            user1.setChosenTime(LocalTime.of(8, 30));
+            user1.setMatchingPassword("password1");
+//            user1.setChosenTime(LocalTime.of(8, 30));
 
             User user2 = new User();
             user2.setUsername("admin");
             user2.setEmail("admin@example.com");
             user2.setPassword(passwordEncoder.encode("adminpass"));  // Encrypt the password
             user2.setRole("ROLE_ADMIN");
-            user2.setChosenTime(LocalTime.of(23, 0));
+            user2.setMatchingPassword("adminpass");
+//            user2.setChosenTime(LocalTime.of(23, 0));
 
             // Save the users to the database
             userRepository.save(user1);

@@ -5,13 +5,10 @@
 </head>
 <body>
 <h1>Welcome, <span th:text="${#authentication.name}">User</span>!</h1>
+<p th:text="${#authentication.principal}"></p>
 
-<p>Your roles:</p>
-<ul>
-    <li th:each="auth : ${#authentication.authorities}">
-        <span th:text="${auth.authority}"></span>
-    </li>
-</ul>
+
+<p>Roles: <span th:each="role : ${#authentication.authorities}" th:text="${role}">Role</span></p>
 
 <div>
     <h2>Common Section</h2>

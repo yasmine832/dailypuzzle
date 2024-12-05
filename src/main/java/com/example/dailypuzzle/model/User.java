@@ -2,6 +2,7 @@ package com.example.dailypuzzle.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "users")// AZEERT
 public class User implements UserDetails { //interface required by spring security
 
     @Id
@@ -28,19 +28,24 @@ public class User implements UserDetails { //interface required by spring securi
     private String username;
 
     @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
+    @Email(message = "Email should be valid format")
     @Column(unique = true, nullable = false)
-    private String email;
+    private String email; //make unque todo
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     @Column(nullable = false)
-    private String password;
+    private String password; //todo
+
+    @NotBlank(message = "Password confirmation is required")
+    private String matchingPassword;
 
     @Column(nullable = false)
     private String role = "ROLE_USER"; //by default
 
 
-    @Column(name="chosen time", nullable = false)
-    private LocalTime chosenTime; //format "HH:MM" TODO
+//    @Column(name="chosen time", nullable = false)
+//    private LocalTime chosenTime; //format "HH:MM" TODO
 
   //foreign key
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //removed from list, removed from db
@@ -52,6 +57,14 @@ public class User implements UserDetails { //interface required by spring securi
     public User() {
     }
 
+
+    public @NotBlank(message = "Password confirmation is required") String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(@NotBlank(message = "Password confirmation is required") String matchingPassword) {
+        this.matchingPassword = matchingPassword;
+    }
 
     public List<SolvedPuzzle> getSolvedPuzzles() {
         return solvedPuzzles;
@@ -127,13 +140,14 @@ public class User implements UserDetails { //interface required by spring securi
 
     }
 
-    public LocalTime getChosenTime() {
-        return chosenTime;
-    }
+//    public LocalTime getChosenTime() {
+//        return chosenTime;
+//    }
+//
+//    public void setChosenTime(LocalTime chosenTime) {
+//        this.chosenTime = chosenTime;
+//    }
 
-    public void setChosenTime(LocalTime chosenTime) {
-        this.chosenTime = chosenTime;
-    }
 
     public String getRole() {
         return role;
