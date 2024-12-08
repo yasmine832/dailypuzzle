@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Daily Puzzles</title>
+</head>
+<body>
+<!-- Only visible to authenticated users -->
+<div sec:authorize="isAuthenticated()">
+    <h1>Today's Puzzles</h1>
+
+    <div th:if="${#lists.isEmpty(puzzles)}">
+        No puzzles available today.
+    </div>
+
+    <div th:each="puzzle : ${puzzles}">
+        <div th:if="!${puzzle.solved}">
+            <h2>Puzzle</h2>
+            <p th:text="${puzzle.question}"></p>
+
+            <form th:action="@{/puzzles/solve/{id}(id=${puzzle.id})}" method="post">
+                <input type="text" name="answer" placeholder="Your answer" required>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit">Submit Answer</button>
+            </form>
+        </div>
+
+        <div th:if="${puzzle.solved}">
+            <p>Puzzle Already Solved!</p>
+        </div>
+    </div>
+
+    <div th:if="${successMessage}" class="success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+</div>
+
+<!-- Shown to unauthenticated users -->
+<div sec:authorize="!isAuthenticated()">
+    <p>Please <a th:href="@{/login}">log in</a> to view daily puzzles.</p>
+</div>
+</body>
+
+<!-- dependency-->
+</html>
