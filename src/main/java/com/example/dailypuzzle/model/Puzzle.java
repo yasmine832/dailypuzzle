@@ -23,8 +23,11 @@ public class Puzzle {
     @Column(nullable = false)
     private String question;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String answer;
+
+    @Column(nullable = false)
+    private String correctAnswer;
 
     @Enumerated(EnumType.STRING)
     private PuzzleType type;
@@ -90,5 +93,13 @@ public class Puzzle {
 
     public void setSolved(boolean solved) {
         isSolved = solved;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

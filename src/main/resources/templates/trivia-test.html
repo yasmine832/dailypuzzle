@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trivia Puzzle Test</title>
+</head>
+<body>
+<h1>Trivia Puzzle Test</h1>
+
+<div th:if="${triviaPuzzle}">
+    <h2>Fetched Puzzle</h2>
+    <p><strong>Question:</strong> <span th:text="${triviaPuzzle.question}"></span></p>
+    <p><strong>Answer:</strong> <span th:text="${triviaPuzzle.answer}"></span></p>
+    <p><strong>Type:</strong> <span th:text="${triviaPuzzle.type}"></span></p>
+</div>
+
+<div th:unless="${triviaPuzzle}">
+    <p>Failed to fetch trivia puzzle</p>
+</div>
+
+<a th:href="@{/puzzles/fetch-trivia}">Fetch Another Trivia Puzzle</a>
+</body>
+</html>

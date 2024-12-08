@@ -13,6 +13,7 @@
         No puzzles available today.
     </div>
 
+    <!-- add type to each puzzle-->
     <div th:each="puzzle : ${puzzles}">
         <div th:if="!${puzzle.solved}">
             <h2>Puzzle</h2>
@@ -26,7 +27,7 @@
         </div>
 
         <div th:if="${puzzle.solved}">
-            <p>Puzzle Already Solved!</p>
+            <p>Puzzle Already Solved! Comeback tomorrow for more!</p>
         </div>
     </div>
 
@@ -39,10 +40,17 @@
     </div>
 </div>
 
+<div>
+    <a th:href="@{/puzzles/fetch}" class="btn btn-primary">
+        Manually Fetch Puzzles
+    </a>
+</div>
+
 <!-- Shown to unauthenticated users -->
 <div sec:authorize="!isAuthenticated()">
     <p>Please <a th:href="@{/login}">log in</a> to view daily puzzles.</p>
 </div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 </body>
 
 <!-- dependency-->
