@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Users</title>
+</head>
+<body>
+<h1>Manage Users</h1>
+
+<p th:if="${error}" style="color: red;">[[${error}]]</p>
+<p th:if="${success}" style="color: green;">[[${success}]]</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
+        <td>
+            <form th:action="@{/admin/delete}" method="post" style="display: inline;">
+                <input type="hidden" name="username" th:value="${user.username}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/admin/create-user}" class="btn btn-primary">Create New User</a>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+</body>
+</html>

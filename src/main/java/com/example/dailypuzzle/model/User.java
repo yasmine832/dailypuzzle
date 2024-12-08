@@ -152,10 +152,12 @@ public class User implements UserDetails { //interface required by spring securi
 
 
     public String getRole() {
-        return role;
+        return this.role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
+
+
 }
