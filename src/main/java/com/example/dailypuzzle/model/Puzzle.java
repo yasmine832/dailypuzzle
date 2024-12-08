@@ -1,42 +1,94 @@
 package com.example.dailypuzzle.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Puzzle {
+
+    public enum PuzzleType {
+        RIDDLE,
+        MATH_PROBLEM,
+        TRIVIA,
+        LOGIC_PUZZLE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //private String title;
-    private String answer;// string??
-    private String question;    //string?
-    private String type; //enum?
+    @Column(nullable = false)
+    private String question;
 
-    //comment
+    @Column(nullable = false)
+    private String answer;
 
-    //comment
+    @Enumerated(EnumType.STRING)
+    private PuzzleType type;
 
-    //comment
+    @Column(nullable = false)
+    private LocalDateTime expirationDate;
 
-    //comment
+    //comments
+    //private String difficulty; // e.g., "EASY", "MEDIUM", "HARD"
+    //private String source;// api source puzzle
 
-    //comment
-
-    //comment
-
-    private LocalDateTime expirationDate; //is 24H
+    private boolean isSolved = false;
 
     //private User user; //many to one uniek?
 
-    //getters en setters
 
+    public Puzzle() {
+    }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public PuzzleType getType() {
+        return type;
+    }
+
+    public void setType(PuzzleType type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(LocalDateTime expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public boolean isSolved() {
+        return isSolved;
+    }
+
+    public void setSolved(boolean solved) {
+        isSolved = solved;
+    }
 }

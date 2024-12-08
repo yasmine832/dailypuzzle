@@ -37,6 +37,8 @@ public class User implements UserDetails { //interface required by spring securi
     @Column(nullable = false)
     private String password; //todo
 
+
+    @Transient //not saved in db
     @NotBlank(message = "Password confirmation is required")
     private String matchingPassword;
 
