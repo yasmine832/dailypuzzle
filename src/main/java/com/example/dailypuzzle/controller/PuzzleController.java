@@ -7,6 +7,7 @@ import com.example.dailypuzzle.repository.UserRepository;
 import com.example.dailypuzzle.service.PuzzleService;
 import com.example.dailypuzzle.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 @RequestMapping("/puzzles")
 public class PuzzleController {
 
@@ -42,6 +44,7 @@ public class PuzzleController {
 
 
     @PostMapping("/solve/{puzzleId}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public String solvePuzzle(
             @PathVariable Long puzzleId,
             @RequestParam String answer,
@@ -64,13 +67,4 @@ public class PuzzleController {
 
         return "redirect:/puzzles";
     }
-}
-
-
-
-
-
-
-
-
 }

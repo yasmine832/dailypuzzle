@@ -73,15 +73,16 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
         http
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/login", "/register", "/hello")//voorlopig
+
                         .permitAll() //allow login and register publicly
+                        .requestMatchers("/puzzles/**").authenticated()
                         .anyRequest().authenticated() //restrict any other endpoint
-                        //.requestMatchers("/admin/**").hasRole("ADMIN") restrict acces to admin role only
-                        //.requestMatchers("/user/**").hasRole("USER")
+
 
                 )
                 .formLogin(formLogin ->
                         formLogin
-                                //.loginPage("/login")/:todo
+                                //.loginPage("/login")//todo
                                 .defaultSuccessUrl("/hello", true) //Todoo "/home"
                                 .failureUrl("/login?error=true")
 
