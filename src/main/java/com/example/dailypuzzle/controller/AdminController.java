@@ -3,6 +3,7 @@ package com.example.dailypuzzle.controller;
 import ch.qos.logback.core.model.Model;
 import com.example.dailypuzzle.model.User;
 import com.example.dailypuzzle.repository.UserRepository;
+import com.example.dailypuzzle.service.AdminService;
 import com.example.dailypuzzle.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -23,16 +24,18 @@ public class AdminController {
     private final UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     private final UserRepository userRepository;
+    private final AdminService adminService;
 
     @Autowired
-    public AdminController(UserService userService, UserRepository userRepository) {
+    public AdminController(UserService userService, UserRepository userRepository, AdminService adminService) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.adminService = adminService;
     }
 
     @GetMapping("/users")
     public String listUsers(ModelMap modelMap) {
-        modelMap.addAttribute("users", userService.getAllUsers());
+        modelMap.addAttribute("users", adminService.getAllUsers());
         return "admin/users";
     }
 
@@ -41,7 +44,7 @@ public class AdminController {
     public String deleteUser(@RequestParam("username") String username, ModelMap modelMap) {
         try {
             System.out.println("Deleting user: " + username);
-            userService.deleteUser(username);
+            adminService.deleteUser(username);
             modelMap.addAttribute("success", "User deleted successfully");
         } catch (Exception ex) {
             modelMap.addAttribute("error", ex.getMessage());
@@ -69,7 +72,7 @@ public class AdminController {
             }
 
             // Create the user
-            User createdUser = userService.createUser(userDTO);
+            User createdUser = adminService.createUser(userDTO);
 
             // Add success message
             redirectAttributes.addFlashAttribute("successMessage",
