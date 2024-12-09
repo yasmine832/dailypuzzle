@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class User implements UserDetails { //interface required by spring securi
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     @Column(nullable = false)
-    private String password; //todo
+    private String password;
 
 
     @Transient //not saved in db
@@ -46,8 +47,8 @@ public class User implements UserDetails { //interface required by spring securi
     private String role = "ROLE_USER"; //by default
 
 
-//    @Column(name="chosen time", nullable = false)
-//    private LocalTime chosenTime; //format "HH:MM" TODO
+    @Column(name = "chosen time", nullable = false)
+    private String chosenTime = "00:00"; //format "HH:MM"
 
   //foreign key
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //removed from list, removed from db
@@ -74,6 +75,10 @@ public class User implements UserDetails { //interface required by spring securi
 
     public void setSolvedPuzzles(List<SolvedPuzzle> solvedPuzzles) {
         this.solvedPuzzles = solvedPuzzles;
+    }
+
+    public void getSolvedPuzzles(SolvedPuzzle solvedPuzzle) {
+        this.solvedPuzzles.add(solvedPuzzle);
     }
 
     public Long getId() {
@@ -142,13 +147,13 @@ public class User implements UserDetails { //interface required by spring securi
 
     }
 
-//    public LocalTime getChosenTime() {
-//        return chosenTime;
-//    }
-//
-//    public void setChosenTime(LocalTime chosenTime) {
-//        this.chosenTime = chosenTime;
-//    }
+    public String getChosenTime() {
+        return chosenTime == null ? "00:00" : chosenTime;
+    }
+
+    public void setChosenTime(String chosenTime) {
+        this.chosenTime = chosenTime;
+    }
 
 
     public String getRole() {

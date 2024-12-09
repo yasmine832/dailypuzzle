@@ -26,6 +26,11 @@
         <p th:each="error : ${#fields.errors('matchingPassword')}" th:text="${error}">Validation error</p>
     </div>
     <div>
+        <label>Choose Daily Puzzle Time</label>
+        <input type="time" th:field="*{chosenTime}" value="00:00"/>
+        <p>Select the time you want to receive daily puzzles</p>
+    </div>
+    <div>
         <button type="submit">Register</button>
     </div>
 </form>

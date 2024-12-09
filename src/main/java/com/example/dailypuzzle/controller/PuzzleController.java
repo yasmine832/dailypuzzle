@@ -72,6 +72,7 @@ public class PuzzleController {
         return "redirect:/puzzles";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/fetch")
     public String manualFetchPuzzles(ModelMap model, Principal principal) {
         // Fetch puzzles

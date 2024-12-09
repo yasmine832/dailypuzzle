@@ -3,10 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <body>
 <nav th:fragment="navbar">
-    <a th:href="@{/}">Home</a>
     <div sec:authorize="isAuthenticated()">
         <a th:href="@{/puzzles}">Daily Puzzles</a>
         <a th:href="@{/profile}">Profile</a>
+        <a th:href="@{/leaderboard}">Leaderboard</a>
         <a th:href="@{/logout}">Logout</a>
     </div>
     <div sec:authorize="!isAuthenticated()">

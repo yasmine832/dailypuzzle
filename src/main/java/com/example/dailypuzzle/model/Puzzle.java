@@ -35,13 +35,10 @@ public class Puzzle {
     @Column(nullable = false)
     private LocalDateTime expirationDate;
 
-    //comments
-    //private String difficulty; // e.g., "EASY", "MEDIUM", "HARD"
-    //private String source;// api source puzzle
-
     private boolean isSolved = false;
 
-    //private User user; //many to one uniek?
+    @Column(nullable = false)
+    private LocalDateTime createdDate = LocalDateTime.now();
 
 
     public Puzzle() {
@@ -73,6 +70,14 @@ public class Puzzle {
 
     public PuzzleType getType() {
         return type;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public void setType(PuzzleType type) {

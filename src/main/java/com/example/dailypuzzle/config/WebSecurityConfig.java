@@ -75,7 +75,7 @@ public class WebSecurityConfig { //spring boot will automatically scan this clas
                                 .requestMatchers("/login", "/register", "/hello")//voorlopig
 
                         .permitAll() //allow login and register publicly
-                        .requestMatchers("/puzzles/**").authenticated()
+                        .requestMatchers("/puzzles/**", "/profile/**", "/profile").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() //restrict any other endpoint
 

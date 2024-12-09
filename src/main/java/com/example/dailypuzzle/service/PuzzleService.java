@@ -71,6 +71,30 @@ public class PuzzleService {
         }
     }
 
+    public void fetchAndDeliverPuzzles(User user) {
+        try {
+            List<Puzzle> puzzles = fetchDailyPuzzles();
+
+            // Associate puzzles with the user if needed
+            puzzles.forEach(puzzle -> {
+                // Optional: Additional logic for user-specific puzzle assignment
+                logger.info("Puzzle delivered: {} to user {}", puzzle.getQuestion(), user.getUsername());
+            });
+
+            // Update user's puzzle stats
+            updateUserPuzzleStats(user, puzzles);
+
+            logger.info("Successfully delivered puzzles to user: {}", user.getUsername());
+        } catch (Exception e) {
+            logger.error("Failed to deliver puzzles to user: {}", user.getUsername(), e);
+        }
+    }
+
+    private void updateUserPuzzleStats(User user, List<Puzzle> puzzles) {
+        // method to update user's puzzle-related statistics
+        // track total puzzles delivered, etc.
+    }
+
 
     public List<Puzzle> getActivePuzzlesForUser(User user) {
         List<Puzzle> activePuzzles = puzzleRepository.findByExpirationDateAfter(LocalDateTime.now());
@@ -92,6 +116,12 @@ public class PuzzleService {
         if (LocalDateTime.now().isAfter(puzzle.getExpirationDate())) {
             throw new IllegalStateException("Puzzle has expired");
         }
+
+        // Check if the user has already solved this puzzle
+        if (solvedPuzzleRepository.existsByUserAndPuzzle(user, puzzle)) {
+            throw new IllegalStateException("You have already solved this puzzle");
+        }
+
 
         // Check if answer is correct (case-insensitive)
         if (puzzle.getCorrectAnswer() != null &&

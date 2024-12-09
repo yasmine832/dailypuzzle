@@ -12,6 +12,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalTime;
+
 @Controller
 public class UserController {
 
@@ -39,11 +41,16 @@ public class UserController {
         }
 
         try {
+            // Validate chosen time format
+            LocalTime.parse(user.getChosenTime());
             userService.registerUser(user);
             return "redirect:/hello";  // Redirect after successful registration
         } catch (UserAlreadyExistsException ex) {
             modelMap.addAttribute("error", ex.getMessage());
             return "register";
+        } catch (Exception e) {
+            return "redirect:/hello";
         }
+
     }
 }

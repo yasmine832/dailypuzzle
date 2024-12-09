@@ -1,0 +1,12 @@
+# Define the GraphQL Schema
+
+type Query {
+    userProgress(userId: ID!): UserProgress # Get the progress of a user
+    leaderboard: [UserProgress] # Get the leaderboard
+}
+
+type UserProgress { #type representing the progress of a user
+    username: String
+    totalSolved: Int
+    averageSolveTime: Float
+}

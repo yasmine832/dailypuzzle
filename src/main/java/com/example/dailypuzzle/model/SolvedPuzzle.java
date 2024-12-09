@@ -24,6 +24,11 @@ public class SolvedPuzzle { //joined table
     private LocalDateTime solvedDate;
 
 
+    private int totalSolved;
+    private double averageSolveTime;
+
+
+
     public Long getId() {
         return id;
     }
@@ -54,5 +59,21 @@ public class SolvedPuzzle { //joined table
 
     public void setSolvedDate(LocalDateTime solvedDate) {
         this.solvedDate = solvedDate;
+    }
+
+    public int getTotalSolved() {
+        return totalSolved;
+    }
+
+    public void setTotalSolved(int totalSolved) {
+        this.totalSolved = totalSolved;
+    }
+
+    public double getAverageSolveTime() {
+        return averageSolveTime;
+    }
+
+    public void setAverageSolveTime(double averageSolveTime) {
+        this.averageSolveTime = averageSolveTime;
     }
 }
